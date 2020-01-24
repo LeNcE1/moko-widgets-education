@@ -13,8 +13,8 @@ class App : BaseApplication() {
     override fun setup(): ScreenDesc<Args.Empty> {
         val theme = Theme()
 
-        return registerScreen(MainScreen::class) {
-            MainScreen(theme)
+        return registerScreen(LoginScreen::class) {
+            LoginScreen(theme)
         }
     }
 }
