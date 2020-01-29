@@ -7,6 +7,7 @@ plugins {
     id("org.jetbrains.kotlin.multiplatform")
     id("dev.icerock.mobile.multiplatform")
     id("dev.icerock.mobile.multiplatform-resources")
+    id("kotlin-android-extensions")
 }
 
 android {
