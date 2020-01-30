@@ -1,7 +1,11 @@
 package org.example.mpp
 
+import dev.icerock.moko.graphics.Color
 import dev.icerock.moko.resources.desc.desc
+import dev.icerock.moko.widgets.ButtonWidget
 import dev.icerock.moko.widgets.core.Theme
+import dev.icerock.moko.widgets.factory.SystemButtonViewFactory
+import dev.icerock.moko.widgets.factory.SystemInputViewFactory
 import dev.icerock.moko.widgets.screen.Args
 import dev.icerock.moko.widgets.screen.BaseApplication
 import dev.icerock.moko.widgets.screen.ScreenDesc
@@ -15,6 +19,11 @@ import dev.icerock.moko.widgets.screen.navigation.createPushResultRoute
 import dev.icerock.moko.widgets.screen.navigation.createPushRoute
 import dev.icerock.moko.widgets.screen.navigation.createReplaceRoute
 import dev.icerock.moko.widgets.screen.navigation.createRouter
+import dev.icerock.moko.widgets.style.background.Background
+import dev.icerock.moko.widgets.style.background.Fill
+import dev.icerock.moko.widgets.style.background.StateBackground
+import dev.icerock.moko.widgets.style.view.Colors
+import dev.icerock.moko.widgets.style.view.TextStyle
 import org.example.mpp.auth.AuthFactory
 import org.example.mpp.auth.InputCodeScreen
 import org.example.mpp.auth.InputPhoneScreen
@@ -23,12 +32,67 @@ import org.example.mpp.profile.EditProfileScreen
 import org.example.mpp.profile.ProfileFactory
 import org.example.mpp.profile.ProfileScreen
 
+val Colors.orange get() = Color(0xff8a65FF)
+val Colors.orangeLight get() = Color(0xffbb93FF)
+val Colors.orangeDark get() = Color(0xc75b39FF)
+
 class App : BaseApplication() {
     override fun setup(): ScreenDesc<Args.Empty> {
-        val theme = Theme()
+        val theme = Theme() {
+            factory[ButtonWidget.DefaultCategory] = SystemButtonViewFactory(
+                background = StateBackground(
+                    normal = Background(
+                        fill = Fill.Solid(color = Colors.orangeLight)
+                    ),
+                    pressed = Background(
+                        fill = Fill.Solid(color = Colors.orange)
+                    ),
+                    disabled = Background(
+                        fill = Fill.Solid(color = Colors.orangeDark)
+                    )
+                ),
+                textStyle = TextStyle(color = Colors.black, size = 15)
+            )
 
-        val authFactory = AuthFactory(theme)
-        val profileFactory = ProfileFactory(theme)
+            factory[SubmitButtonsCategory] = SystemButtonViewFactory(
+                background = StateBackground(
+                    normal = Background(
+                        fill = Fill.Solid(color = Colors.black)
+                    ),
+                    pressed = Background(
+                        fill = Fill.Solid(color = Colors.black.copy(alpha = 0xAA))
+                    ),
+                    disabled = Background(
+                        fill = Fill.Solid(color = Colors.black.copy(alpha = 0xEE))
+                    )
+                ),
+                textStyle = TextStyle(color = Colors.white, size = 15)
+            )
+
+            factory[InputPhoneScreen.Ids.Phone] = SystemInputViewFactory(
+                labelTextStyle = TextStyle(color = Colors.orangeDark)
+            )
+        }
+
+        val profileTheme = Theme(parent = theme) {
+            factory[ButtonWidget.DefaultCategory] = SystemButtonViewFactory(
+                background = StateBackground(
+                    normal = Background(
+                        fill = Fill.Solid(color = Colors.orangeLight)
+                    ),
+                    pressed = Background(
+                        fill = Fill.Solid(color = Colors.orange)
+                    ),
+                    disabled = Background(
+                        fill = Fill.Solid(color = Colors.orangeDark)
+                    )
+                ),
+                textStyle = TextStyle(color = Colors.black, size = 24)
+            )
+        }
+
+        val authFactory = AuthFactory(theme, submitButtons = SubmitButtonsCategory)
+        val profileFactory = ProfileFactory(profileTheme)
 
         return registerScreen(RootNavigationScreen::class) {
             val rootNavigationRouter = createRouter()
@@ -42,7 +106,10 @@ class App : BaseApplication() {
                 )
 
                 val infoScreen = registerScreen(InfoScreen::class) {
-                    InfoScreen(theme = theme, routeProfile = bottomNavigationRouter.createChangeTabRoute(2))
+                    InfoScreen(
+                        theme = theme,
+                        routeProfile = bottomNavigationRouter.createChangeTabRoute(2)
+                    )
                 }
 
                 MainBottomNavigationScreen(
@@ -123,9 +190,15 @@ class MainBottomNavigationScreen(
     builder: BottomNavigationItem.Builder.() -> Unit
 ) : BottomNavigationScreen(router, builder), NavigationItem {
     override val navigationBar: NavigationBar = NavigationBar.None
+
+    init {
+        bottomNavigationColor = Colors.orangeDark
+    }
 }
 
 class ProfileNavigationScreen(
     initialScreen: TypedScreenDesc<Args.Empty, ProfileScreen>,
     router: Router
 ) : NavigationScreen<ProfileScreen>(initialScreen, router)
+
+object SubmitButtonsCategory : ButtonWidget.Category

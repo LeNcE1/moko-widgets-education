@@ -28,7 +28,8 @@ class InputPhoneScreen(
     private val viewModelFactory: (
         EventsDispatcher<InputPhoneViewModel.EventsListener>
     ) -> InputPhoneViewModel,
-    private val routeInputCode: Route<String>
+    private val routeInputCode: Route<String>,
+    private val submitButtons: ButtonWidget.Category
 ) : WidgetScreen<Args.Empty>(), InputPhoneViewModel.EventsListener, NavigationItem {
 
     override val navigationBar: NavigationBar get() = NavigationBar.Normal("Input phone".desc())
@@ -51,7 +52,8 @@ class InputPhoneScreen(
             val submitButton = +button(
                 size = WidgetSize.WidthAsParentHeightWrapContent,
                 content = ButtonWidget.Content.Text(Value.data("Submit".desc())),
-                onTap = viewModel::onSubmitPressed
+                onTap = viewModel::onSubmitPressed,
+                category = submitButtons
             )
 
             constraints {

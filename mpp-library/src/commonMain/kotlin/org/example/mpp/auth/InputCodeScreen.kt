@@ -33,8 +33,10 @@ class InputCodeScreen(
         eventsDispatcher: EventsDispatcher<InputCodeViewModel.EventsListener>,
         token: String
     ) -> InputCodeViewModel,
-    private val routeMain: Route<Unit>
-) : WidgetScreen<Args.Parcel<InputCodeScreen.Arg>>(), InputCodeViewModel.EventsListener, NavigationItem {
+    private val routeMain: Route<Unit>,
+    private val submitButtons: ButtonWidget.Category
+) : WidgetScreen<Args.Parcel<InputCodeScreen.Arg>>(), InputCodeViewModel.EventsListener,
+    NavigationItem {
 
     override val navigationBar: NavigationBar get() = NavigationBar.Normal("Input code".desc())
 
@@ -56,7 +58,8 @@ class InputCodeScreen(
             val submitButton = +button(
                 size = WidgetSize.WidthAsParentHeightWrapContent,
                 content = ButtonWidget.Content.Text(Value.data("Submit".desc())),
-                onTap = viewModel::onSubmitPressed
+                onTap = viewModel::onSubmitPressed,
+                category = submitButtons
             )
 
             constraints {
