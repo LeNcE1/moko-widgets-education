@@ -70,7 +70,7 @@ class App : BaseApplication() {
             )
 
             factory[InputPhoneScreen.Ids.Phone] = SystemInputViewFactory(
-                labelTextStyle = TextStyle(color = Colors.orangeDark)
+                textStyle = TextStyle(color = Colors.orangeDark)
             )
         }
 

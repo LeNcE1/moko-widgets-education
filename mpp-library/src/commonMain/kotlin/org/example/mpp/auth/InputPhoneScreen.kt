@@ -14,14 +14,13 @@ import dev.icerock.moko.widgets.constraint
 import dev.icerock.moko.widgets.core.Theme
 import dev.icerock.moko.widgets.core.Value
 import dev.icerock.moko.widgets.input
-import dev.icerock.moko.widgets.screen.Args
-import dev.icerock.moko.widgets.screen.WidgetScreen
-import dev.icerock.moko.widgets.screen.getViewModel
-import dev.icerock.moko.widgets.screen.listen
+import dev.icerock.moko.widgets.screen.*
 import dev.icerock.moko.widgets.screen.navigation.NavigationBar
 import dev.icerock.moko.widgets.screen.navigation.NavigationItem
 import dev.icerock.moko.widgets.screen.navigation.Route
 import dev.icerock.moko.widgets.style.view.WidgetSize
+import org.example.mpp.openUrl
+import org.example.mpp.showMessage
 
 class InputPhoneScreen(
     private val theme: Theme,
@@ -49,11 +48,23 @@ class InputPhoneScreen(
                 field = viewModel.phoneField
             )
 
+            val githubButton = +button(
+                size = WidgetSize.WrapContent,
+                content = ButtonWidget.Content.Text(Value.data("GitHub".desc())),
+                onTap = ::onGitHubPressed
+            )
+
             val submitButton = +button(
                 size = WidgetSize.WidthAsParentHeightWrapContent,
                 content = ButtonWidget.Content.Text(Value.data("Submit".desc())),
                 onTap = viewModel::onSubmitPressed,
                 category = submitButtons
+            )
+
+            val aboutButton = +button(
+                size = WidgetSize.WrapContent,
+                content = ButtonWidget.Content.Text(Value.data("About".desc())),
+                onTap = ::onAboutPressed
             )
 
             constraints {
@@ -62,8 +73,25 @@ class InputPhoneScreen(
 
                 submitButton bottomToBottom root.safeArea offset 16
                 submitButton leftRightToLeftRight root offset 16
+
+                githubButton rightToRight root offset 16
+                githubButton topToTop root.safeArea offset 16
+
+                aboutButton rightToLeft githubButton offset 8
+                aboutButton topToTop githubButton
             }
         }
+    }
+
+    private fun onGitHubPressed() {
+        openUrl("https://github.com/icerockdev/moko-widgets")
+    }
+
+    private fun onAboutPressed() {
+        showMessage(
+            title = "Hello world!".desc(),
+            message = "Here message from common code ;)".desc()
+        )
     }
 
     object Ids {
@@ -72,6 +100,10 @@ class InputPhoneScreen(
 
     override fun routeInputCode(token: String) {
         routeInputCode.route(this, token)
+    }
+
+    override fun showError(error: StringDesc) {
+        showToast(error)
     }
 }
 
@@ -85,11 +117,17 @@ class InputPhoneViewModel(
     )
 
     fun onSubmitPressed() {
-        val token = "token:" + phoneField.data.value
+        val phone = phoneField.data.value
+        if (phone.isBlank()) {
+            eventsDispatcher.dispatchEvent { showError("it's cant be blank!".desc()) }
+            return
+        }
+        val token = "token:$phone"
         eventsDispatcher.dispatchEvent { routeInputCode(token) }
     }
 
     interface EventsListener {
         fun routeInputCode(token: String)
+        fun showError(error: StringDesc)
     }
 }
