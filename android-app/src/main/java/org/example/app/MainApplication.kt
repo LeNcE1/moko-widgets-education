@@ -12,7 +12,7 @@ class MainApplication : Application() {
         super.onCreate()
 
         mppApplication = App().apply {
-            setup()
+            initialize()
         }
     }
 

@@ -69,9 +69,9 @@ class App : BaseApplication() {
                 textStyle = TextStyle(color = Colors.white, size = 15)
             )
 
-            factory[InputPhoneScreen.Ids.Phone] = SystemInputViewFactory(
-                textStyle = TextStyle(color = Colors.orangeDark)
-            )
+            factory[InputPhoneScreen.Ids.Phone] = PhoneInputViewFactory()
+
+            factory[InputCodeScreen.Ids.Code] = CodeInputViewFactory()
         }
 
         val profileTheme = Theme(parent = theme) {

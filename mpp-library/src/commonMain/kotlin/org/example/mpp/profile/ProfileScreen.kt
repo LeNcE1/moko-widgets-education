@@ -41,7 +41,7 @@ class ProfileScreen(
                 size = WidgetSize.WidthAsParentHeightWrapContent,
                 content = ButtonWidget.Content.Text(Value.data("Logout".desc()))
             ) {
-                routeLogout.route(this@ProfileScreen)
+                routeLogout.route()
             }
 
             constraints {

@@ -33,6 +33,8 @@ dependencies {
     mppLibrary(Deps.Libs.MultiPlatform.coroutines)
 
     androidLibrary(Deps.Libs.Android.lifecycle)
+    androidLibrary(Deps.Libs.Android.roundedImageView)
+    androidLibrary(Deps.Libs.Android.otpView)
 
     mppLibs.forEach { mppLibrary(it) }
 }
@@ -43,3 +45,9 @@ multiplatformResources {
 
 // dependencies graph generator
 apply(from = "https://raw.githubusercontent.com/JakeWharton/SdkSearch/master/gradle/projectDependencyGraph.gradle")
+
+cocoaPods {
+    podsProject = file("../ios-app/Pods/Pods.xcodeproj")
+
+    pod("SVPinView")
+}

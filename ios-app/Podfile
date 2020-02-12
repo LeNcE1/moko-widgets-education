@@ -22,4 +22,5 @@ end
 
 target 'ios-app' do
   pod 'MultiPlatformLibrary', :path => '../mpp-library'
+  pod 'SVPinView', '1.0.7'
 end

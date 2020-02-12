@@ -38,6 +38,14 @@ object Deps {
             val lifecycle = AndroidLibrary(
                 name = "androidx.lifecycle:lifecycle-extensions:${Versions.Libs.Android.lifecycle}"
             )
+
+            val roundedImageView = AndroidLibrary(
+                name = "com.makeramen:roundedimageview:${Versions.Libs.Android.roundedImageView}"
+            )
+
+            val otpView = AndroidLibrary(
+                name = "com.github.GoodieBag:Pinview:v1.4"
+            )
         }
 
         object MultiPlatform {

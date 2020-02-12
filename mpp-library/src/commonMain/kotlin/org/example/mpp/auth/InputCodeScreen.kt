@@ -77,7 +77,7 @@ class InputCodeScreen(
     }
 
     override fun routeMain() {
-        routeMain.route(this)
+        routeMain.route()
     }
 
     @Parcelize

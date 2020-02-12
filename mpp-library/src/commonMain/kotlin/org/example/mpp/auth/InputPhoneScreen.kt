@@ -19,8 +19,7 @@ import dev.icerock.moko.widgets.screen.navigation.NavigationBar
 import dev.icerock.moko.widgets.screen.navigation.NavigationItem
 import dev.icerock.moko.widgets.screen.navigation.Route
 import dev.icerock.moko.widgets.style.view.WidgetSize
-import org.example.mpp.openUrl
-import org.example.mpp.showMessage
+import org.example.mpp.*
 
 class InputPhoneScreen(
     private val theme: Theme,
@@ -84,14 +83,22 @@ class InputPhoneScreen(
     }
 
     private fun onGitHubPressed() {
-        openUrl("https://github.com/icerockdev/moko-widgets")
+        showPhonePicker(phonePickerHandler)
     }
 
     private fun onAboutPressed() {
-        showMessage(
-            title = "Hello world!".desc(),
-            message = "Here message from common code ;)".desc()
+        showDialog(
+            dialogId = 2,
+            title = "Question 2".desc(),
+            message = "No or yes?".desc(),
+            positiveButton = "No".desc(),
+            negativeButton = "Yes".desc(),
+            buttonsHandler = openUrlDialogHandler
         )
+    }
+
+    private val phonePickerHandler by registerPhonePickerHandler(9) {
+        showToast("picked $it".desc())
     }
 
     object Ids {
@@ -99,12 +106,21 @@ class InputPhoneScreen(
     }
 
     override fun routeInputCode(token: String) {
-        routeInputCode.route(this, token)
+        routeInputCode.route(token)
     }
 
     override fun showError(error: StringDesc) {
         showToast(error)
     }
+
+    private val openUrlDialogHandler by registerDialogButtonsHandler(
+        onPositivePressed = {
+            showToast("positive from $it".desc())
+        },
+        onNegativePressed = {
+            showToast("negative from $it".desc())
+        }
+    )
 }
 
 class InputPhoneViewModel(
@@ -122,7 +138,7 @@ class InputPhoneViewModel(
             eventsDispatcher.dispatchEvent { showError("it's cant be blank!".desc()) }
             return
         }
-        val token = "token:$phone"
+        val token = phone
         eventsDispatcher.dispatchEvent { routeInputCode(token) }
     }
 

@@ -37,7 +37,7 @@ class EditProfileScreen(
                 )
             ) {
                 screenResult = Result(false)
-                routeBack.route(this@EditProfileScreen)
+                routeBack.route()
             }
 
             val close2Btn = +button(
@@ -49,7 +49,7 @@ class EditProfileScreen(
                 )
             ) {
                 screenResult = Result(true)
-                routeBack.route(this@EditProfileScreen)
+                routeBack.route()
             }
 
             constraints {

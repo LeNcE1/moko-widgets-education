@@ -18,6 +18,7 @@ allprojects {
         maven { url = uri("https://kotlin.bintray.com/ktor") }
         maven { url = uri("https://dl.bintray.com/aakira/maven") }
         maven { url = uri("http://dl.bintray.com/lukaville/maven") }
+        maven { url = uri("https://jitpack.io") }
     }
 
     // workaround for https://youtrack.jetbrains.com/issue/KT-27170

@@ -23,7 +23,7 @@ class InfoScreen(
                 size = WidgetSize.WidthAsParentHeightWrapContent,
                 content = ButtonWidget.Content.Text(Value.data("Profile".desc()))
             ) {
-                routeProfile.route(this@InfoScreen)
+                routeProfile.route()
             }
 
             constraints {
