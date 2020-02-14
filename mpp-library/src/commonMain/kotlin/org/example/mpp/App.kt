@@ -28,6 +28,7 @@ import org.example.mpp.auth.AuthFactory
 import org.example.mpp.auth.InputCodeScreen
 import org.example.mpp.auth.InputPhoneScreen
 import org.example.mpp.info.InfoScreen
+import org.example.mpp.info.PlatformInfoScreen
 import org.example.mpp.profile.EditProfileScreen
 import org.example.mpp.profile.ProfileFactory
 import org.example.mpp.profile.ProfileScreen
@@ -105,11 +106,8 @@ class App : BaseApplication() {
                     rootNavigationRouter = rootNavigationRouter
                 )
 
-                val infoScreen = registerScreen(InfoScreen::class) {
-                    InfoScreen(
-                        theme = theme,
-                        routeProfile = bottomNavigationRouter.createChangeTabRoute(2)
-                    )
+                val infoScreen = registerScreen(PlatformInfoScreen::class) {
+                    PlatformInfoScreen(theme, bottomNavigationRouter.createChangeTabRoute(2))
                 }
 
                 MainBottomNavigationScreen(

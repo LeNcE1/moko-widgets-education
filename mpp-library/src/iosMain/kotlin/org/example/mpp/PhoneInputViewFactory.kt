@@ -1,5 +1,20 @@
 package org.example.mpp
 
+import dev.icerock.moko.widgets.InputWidget
+import dev.icerock.moko.widgets.core.ViewBundle
+import dev.icerock.moko.widgets.core.ViewFactory
+import dev.icerock.moko.widgets.core.ViewFactoryContext
+import dev.icerock.moko.widgets.objc.setAssociatedObject
+import dev.icerock.moko.widgets.style.applyInputTypeIfNeeded
+import dev.icerock.moko.widgets.style.view.WidgetSize
+import dev.icerock.moko.widgets.utils.*
+import kotlinx.cinterop.readValue
+import platform.CoreGraphics.CGRectZero
+import platform.UIKit.UIControlEventEditingChanged
+import platform.UIKit.UITextField
+import platform.UIKit.clipsToBounds
+import platform.UIKit.translatesAutoresizingMaskIntoConstraints
+
 
 actual class PhoneInputViewFactory : ViewFactory<InputWidget<out WidgetSize>> {
     override fun <WS : WidgetSize> build(

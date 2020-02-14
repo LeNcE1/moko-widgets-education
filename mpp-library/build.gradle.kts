@@ -50,4 +50,5 @@ cocoaPods {
     podsProject = file("../ios-app/Pods/Pods.xcodeproj")
 
     pod("SVPinView")
+    pod("mppLibraryIos")
 }

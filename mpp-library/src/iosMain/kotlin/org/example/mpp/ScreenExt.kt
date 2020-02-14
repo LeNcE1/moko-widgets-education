@@ -1,8 +1,16 @@
 package org.example.mpp
 
+import dev.icerock.moko.resources.desc.StringDesc
 import dev.icerock.moko.widgets.screen.Screen
+import platform.Contacts.CNContact
+import platform.Contacts.CNLabeledValue
+import platform.Contacts.CNPhoneNumber
+import platform.ContactsUI.CNContactPickerDelegateProtocol
+import platform.ContactsUI.CNContactPickerViewController
 import platform.Foundation.NSURL
-import platform.UIKit.UIApplication
+import platform.UIKit.*
+import platform.darwin.NSObject
+import kotlin.properties.ReadOnlyProperty
 
 actual fun Screen<*>.openUrl(url: String) {
     UIApplication.sharedApplication.openURL(NSURL.URLWithString(url)!!)

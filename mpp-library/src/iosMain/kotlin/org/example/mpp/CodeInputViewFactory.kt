@@ -1,5 +1,16 @@
 package org.example.mpp
 
+import cocoapods.SVPinView.SVPinView
+import dev.icerock.moko.widgets.InputWidget
+import dev.icerock.moko.widgets.core.ViewBundle
+import dev.icerock.moko.widgets.core.ViewFactory
+import dev.icerock.moko.widgets.core.ViewFactoryContext
+import dev.icerock.moko.widgets.style.view.WidgetSize
+import kotlinx.cinterop.readValue
+import platform.CoreGraphics.CGRectZero
+import platform.UIKit.heightAnchor
+import platform.UIKit.translatesAutoresizingMaskIntoConstraints
+
 actual class CodeInputViewFactory actual constructor() : ViewFactory<InputWidget<out WidgetSize>> {
     override fun <WS : WidgetSize> build(
         widget: InputWidget<out WidgetSize>,
