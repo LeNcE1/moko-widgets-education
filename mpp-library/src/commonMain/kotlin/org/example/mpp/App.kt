@@ -27,6 +27,7 @@ import dev.icerock.moko.widgets.style.view.TextStyle
 import org.example.mpp.auth.AuthFactory
 import org.example.mpp.auth.InputCodeScreen
 import org.example.mpp.auth.InputPhoneScreen
+import org.example.mpp.friends.FriendsScreen
 import org.example.mpp.info.InfoScreen
 import org.example.mpp.info.PlatformInfoScreen
 import org.example.mpp.profile.EditProfileScreen
@@ -163,10 +164,15 @@ class App : BaseApplication() {
                 )
             }
 
+            val friendsScreen = registerScreen(FriendsScreen::class) {
+                profileFactory.createFriendsScreen()
+            }
+
             val profileScreen = registerScreen(ProfileScreen::class) {
                 profileFactory.createProfileScreen(
                     routeEdit = navigationRouter.createPushResultRoute(profileEditScreen) { it.edited },
-                    routeLogout = rootNavigationRouter.createPopRoute()
+                    routeLogout = rootNavigationRouter.createPopRoute(),
+                    routeFriends = navigationRouter.createPushRoute(friendsScreen)
                 )
             }
 

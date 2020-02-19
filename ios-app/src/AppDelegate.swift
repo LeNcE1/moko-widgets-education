@@ -12,13 +12,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         let app = App()
-        app.setup()
+        app.initialize()
 
         let screen = app.rootScreen.instantiate()
         let rootViewController = screen.viewController
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = rootViewController
         window?.tintColor = UIColor(red:1.00, green:0.74, blue:0.27, alpha:1.0)
+        window?.makeKeyAndVisible()
 
         return true
     }

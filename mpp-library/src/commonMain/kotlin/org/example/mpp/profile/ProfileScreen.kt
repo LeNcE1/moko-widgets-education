@@ -19,7 +19,8 @@ import dev.icerock.moko.widgets.style.view.WidgetSize
 class ProfileScreen(
     private val theme: Theme,
     private val routeEdit: RouteWithResult<Unit, Boolean>,
-    private val routeLogout: Route<Unit>
+    private val routeLogout: Route<Unit>,
+    private val routeFriends: Route<Unit>
 ) : WidgetScreen<Args.Empty>(), NavigationItem {
 
     override val navigationBar: NavigationBar get() = NavigationBar.Normal("Profile".desc())
@@ -44,12 +45,22 @@ class ProfileScreen(
                 routeLogout.route()
             }
 
+            val friendsButton = +button(
+                size = WidgetSize.WidthAsParentHeightWrapContent,
+                content = ButtonWidget.Content.Text(Value.data("Friends".desc()))
+            ) {
+                routeFriends.route()
+            }
+
             constraints {
                 editButton centerYToCenterY root
                 editButton centerXToCenterX root
 
                 logoutButton centerXToCenterX root
                 logoutButton topToBottom editButton
+
+                friendsButton topToBottom logoutButton
+                friendsButton centerXToCenterX root
             }
         }
     }
