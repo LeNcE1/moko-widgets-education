@@ -8,6 +8,7 @@ plugins {
     id("dev.icerock.mobile.multiplatform")
     id("dev.icerock.mobile.multiplatform-resources")
     id("kotlin-android-extensions")
+    id("dev.icerock.mobile.multiplatform-widgets-generator")
 }
 
 android {
